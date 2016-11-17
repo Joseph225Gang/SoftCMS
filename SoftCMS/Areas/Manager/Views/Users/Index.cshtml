@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SoftCMS.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SoftLayout.cshtml";
+}
+
+<h2 style="color:white;">帳號管理</h2>
+
+<table class="table" id="article_view" style="color:white;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+@Html.ActionLink("文章首頁", "Index", "MainArticleModels")<br />
+@Html.ActionLink("回文首頁", "Index", "ReplyModels")<br />
+@Html.ActionLink("返回首頁", "Index", "Home", new { area = "" }, new { @id = "register" })

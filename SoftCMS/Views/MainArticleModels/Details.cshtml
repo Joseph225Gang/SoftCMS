@@ -1,0 +1,75 @@
+﻿@model SoftCMS.ViewModel.ArticleAndReplyModel
+@{
+    Layout = "~/Views/Shared/_SoftLayout.cshtml";
+}
+
+<div id="article_content">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.article.CreateUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.article.CreateUser)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.article.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.article.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.article.PublichDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.article.PublichDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.article.ContentText)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.article.ContentText)
+        </dd>
+    </dl>
+</div>
+@foreach (var item in Model.article.replyArticles.OrderBy(u => u.PublichDate))
+{
+    <div class="container-fluid">
+        <span id="article_view">
+            @Html.DisplayFor(modelItem => item.CreateUser)
+        </span>
+        <span id="article_view">
+            @Html.DisplayFor(modelItem => item.ContentText)
+        </span>
+    </div>
+        <div id="article_date" class="container-fluid">
+            @Html.DisplayFor(modelItem => item.PublichDate)
+        </div>
+}
+@if (Request.IsAuthenticated)
+            {
+                TempData["subject"] = Model.article.Subject;
+                TempData.Keep("subject");
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.reply.ContentText, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.reply.ContentText, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.reply.ContentText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+}
