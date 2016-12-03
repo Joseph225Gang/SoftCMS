@@ -220,6 +220,7 @@
     <Compile Include="Areas\Manager\Controllers\UsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainArticleModelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -319,6 +320,8 @@
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\MainArticleModels\Create.cshtml" />
     <Content Include="Views\MainArticleModels\Details.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\ErrorFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
