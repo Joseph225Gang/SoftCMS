@@ -28,7 +28,7 @@ namespace SoftCMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Subject,ContentText")] MainArticleModel mainArticleModel)
+        public async Task<ActionResult> Create([Bind(Include = "Subject,ContentText")] MainArticleModel mainArticleModel)
         {
             try
             {
