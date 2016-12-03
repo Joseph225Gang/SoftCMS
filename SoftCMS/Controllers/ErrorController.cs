@@ -18,5 +18,11 @@ namespace SoftCMS.Controllers
         {
             return View();
         }
+
+        public ActionResult DataError(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
     }
 }

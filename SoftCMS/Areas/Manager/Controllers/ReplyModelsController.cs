@@ -41,9 +41,16 @@ namespace SoftCMS.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            ReplyModel replyModel = db.Replies.Find(id);
-            db.Replies.Remove(replyModel);
-            db.SaveChanges();
+            try
+            {
+                ReplyModel replyModel = db.Replies.Find(id);
+                db.Replies.Remove(replyModel);
+                db.SaveChanges();
+            }
+            catch(DataException)
+            {
+                return RedirectToAction("DataError", "Error", new { area = "",message = "刪除錯誤" });
+            }
             return RedirectToAction("Index");
         }
 

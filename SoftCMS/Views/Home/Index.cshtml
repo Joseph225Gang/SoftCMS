@@ -3,6 +3,13 @@
 @model IEnumerable<SoftCMS.Models.MainArticleModel>
 
 <div class="text-center">
+    @using (Html.BeginForm())
+    {
+        <p>
+            @Html.TextBox("SearchString")
+            <input type="submit" value="搜尋" />
+        </p>
+    }
     @Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x }))
 </div>
 

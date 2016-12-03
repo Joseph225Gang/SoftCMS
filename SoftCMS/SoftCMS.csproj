@@ -322,6 +322,7 @@
     <Content Include="Views\MainArticleModels\Details.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\ErrorFound.cshtml" />
+    <Content Include="Views\Error\DataError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
