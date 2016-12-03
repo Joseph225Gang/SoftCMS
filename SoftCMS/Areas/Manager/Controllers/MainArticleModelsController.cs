@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
+using System.Threading.Tasks;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -16,9 +17,9 @@ namespace SoftCMS.Areas.Manager.Controllers
         private SoftContext db = new SoftContext();
 
         // GET: Manager/MainArticleModels
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.MainArticles.ToList());
+            return View(await db.MainArticles.ToListAsync());
         }
 
         // GET: Manager/MainArticleModels/Delete/5

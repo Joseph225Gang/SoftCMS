@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
 using SoftCMS.ViewModel;
+using System.Threading.Tasks;
 
 namespace SoftCMS.Controllers
 {
@@ -27,7 +28,7 @@ namespace SoftCMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Subject,ContentText")] MainArticleModel mainArticleModel)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Subject,ContentText")] MainArticleModel mainArticleModel)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace SoftCMS.Controllers
                     mainArticleModel.PublichDate = DateTime.Now;
                     mainArticleModel.ReplyCount = 0;
                     db.MainArticles.Add(mainArticleModel);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -71,7 +72,7 @@ namespace SoftCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details(ArticleAndReplyModel replyModel)
+        public async Task<ActionResult> Details(ArticleAndReplyModel replyModel)
         {
             try
             {
@@ -83,7 +84,7 @@ namespace SoftCMS.Controllers
                     replyModel.reply.ArticelMaker = db.MainArticles.Where(u => u.ID.Equals(replyModel.reply.ArticleID)).SingleOrDefault().CreateUser;
                     replyModel.reply.CreateUser = User.Identity.Name;
                     replyModel.reply.PublichDate = DateTime.Now;
-                    MainArticleModel article = db.MainArticles.Find(replyModel.reply.ArticleID);
+                    MainArticleModel article = await db.MainArticles.FindAsync(replyModel.reply.ArticleID);
                     article.ReplyCount = article.replyArticles.ToList().Count() + 1;
                     db.Replies.Add(replyModel.reply);
                     db.SaveChanges();
