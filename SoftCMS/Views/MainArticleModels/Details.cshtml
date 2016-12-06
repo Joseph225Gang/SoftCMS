@@ -48,11 +48,11 @@
         </div>
 }
 @if (Request.IsAuthenticated)
-            {
-                TempData["subject"] = Model.article.Subject;
-                TempData.Keep("subject");
-                using (Html.BeginForm())
-                {
+{
+    TempData["subject"] = Model.article.Subject;
+    TempData.Keep("subject");
+    using (Ajax.BeginForm("Details", "MainArticleModels", new AjaxOptions()))
+    {
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
