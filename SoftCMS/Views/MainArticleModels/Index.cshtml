@@ -1,0 +1,31 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<SoftCMS.Models.MainArticleModel>
+
+<div class="text-center">
+    @Html.PagedListPager((IPagedList)Model, x => Url.Action("Index", new { page = x, title = ViewBag.Title }))
+</div>
+<img src='@Url.Action("ViewImage", "Account")' style="width:200px;height:200px;" />
+@foreach (var item in Model)
+{
+    <div class="container-fluid">
+        <span id="article_view" style="width:4em;margin-right:10px;">
+            @if (item.replyArticles.Count > 0)
+            {
+                @Html.DisplayFor(modelItem => item.ReplyCount)
+            }
+        </span>
+        <span>
+            &nbsp
+            @Html.ActionLink(item.Subject, "Details", "MainArticleModels", new { id = item.ID }, htmlAttributes: new
+       {
+           @id = "article_content"
+       })
+        </span>
+    </div>
+    <div id="article_date" class="container-fluid">
+        @Html.DisplayFor(modelItem => item.PublichDate)
+    </div>
+}
+<br />
+@CheckIdentity.CheckUserIdentity()

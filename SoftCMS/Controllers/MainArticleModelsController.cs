@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SoftCMS.Models;
 using SoftCMS.ViewModel;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace SoftCMS.Controllers
 {
@@ -17,9 +18,18 @@ namespace SoftCMS.Controllers
     {
         private SoftContext db = new SoftContext();
 
-        // GET: MainArticleModels/Create
-        public ActionResult Create()
+        public ActionResult Index(string title, int page = 1, int pageSize = 2)
         {
+            var articles = db.MainArticles.Where(u => u.Forum.ContentText.Equals(title)).AsQueryable();
+            ViewBag.Title = title;
+            var result = articles.OrderBy(num => num.PublichDate).ToPagedList(page, pageSize);
+            return View(result);
+        }
+
+        // GET: MainArticleModels/Create
+        public ActionResult Create(string title)
+        {
+            ViewBag.Theme = title;
             return View();
         }
 
@@ -30,17 +40,19 @@ namespace SoftCMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Subject,ContentText")] MainArticleModel mainArticleModel)
         {
+            string forum = TempData["Forum"].ToString();
             try
             {
                 if (ModelState.IsValid)
                 {
+                    mainArticleModel.Forum = db.Categories.Where(c => c.ContentText.Equals(forum)).First();
                     mainArticleModel.ID = Guid.NewGuid();
                     mainArticleModel.CreateUser = User.Identity.Name;
                     mainArticleModel.PublichDate = DateTime.Now;
                     mainArticleModel.ReplyCount = 0;
                     db.MainArticles.Add(mainArticleModel);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "MainArticleModels",new { title = forum });
                 }
             }
             catch(DataException)
@@ -80,7 +92,7 @@ namespace SoftCMS.Controllers
                 {
                     string subject = TempData["subject"].ToString();
                     replyModel.reply.ID = Guid.NewGuid();
-                    replyModel.reply.ArticleID = db.MainArticles.Where(u => u.Subject.Equals(subject)).SingleOrDefault().ID;
+                    replyModel.reply.ArticleID = db.MainArticles.Where(u => u.ID.ToString().Equals(subject)).Single().ID;
                     replyModel.reply.ArticelMaker = db.MainArticles.Where(u => u.ID.Equals(replyModel.reply.ArticleID)).SingleOrDefault().CreateUser;
                     replyModel.reply.CreateUser = User.Identity.Name;
                     replyModel.reply.PublichDate = DateTime.Now;

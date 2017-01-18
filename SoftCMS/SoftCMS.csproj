@@ -217,30 +217,36 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Manager\Controllers\ForumController.cs" />
     <Compile Include="Areas\Manager\Controllers\MainArticleModelsController.cs" />
+    <Compile Include="Areas\Manager\Controllers\MainThemesController.cs" />
     <Compile Include="Areas\Manager\Controllers\ReplyModelsController.cs" />
     <Compile Include="Areas\Manager\Controllers\UsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainArticleModelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611140736473_inital-add.cs" />
-    <Compile Include="Migrations\201611140736473_inital-add.Designer.cs">
-      <DependentUpon>201611140736473_inital-add.cs</DependentUpon>
+    <Compile Include="Migrations\201701180526472_initial-add.cs" />
+    <Compile Include="Migrations\201701180526472_initial-add.Designer.cs">
+      <DependentUpon>201701180526472_initial-add.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MainArticleModel.cs" />
+    <Compile Include="Models\MainThemes.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReplyModel.cs" />
     <Compile Include="Models\SoftContext.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ArticleAndReplyModel.cs" />
@@ -283,6 +289,15 @@
     <Content Include="Areas\Manager\Views\ReplyModels\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\ReplyModels\Index.cshtml" />
     <Content Include="Content\layout.less" />
+    <Content Include="App_Code\CheckIdentity.cshtml" />
+    <Content Include="Areas\Manager\Views\MainThemes\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\MainThemes\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\MainThemes\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\MainThemes\Index.cshtml" />
+    <Content Include="Areas\Manager\Views\Forum\Create.cshtml" />
+    <Content Include="Areas\Manager\Views\Forum\Delete.cshtml" />
+    <Content Include="Areas\Manager\Views\Forum\Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\Forum\Index.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -335,9 +350,10 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\ErrorFound.cshtml" />
     <Content Include="Views\Error\DataError.cshtml" />
+    <Content Include="Views\Forum\Browse.cshtml" />
+    <Content Include="Views\MainArticleModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="Areas\Manager\Models\" />
     <Folder Include="Areas\Manager\Views\Account\" />
   </ItemGroup>
@@ -350,12 +366,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611140736473_inital-add.resx">
-      <DependentUpon>201611140736473_inital-add.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\201701180526472_initial-add.resx">
+      <DependentUpon>201701180526472_initial-add.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

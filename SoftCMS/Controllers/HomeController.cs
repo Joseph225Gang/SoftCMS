@@ -13,15 +13,9 @@ namespace SoftCMS.Controllers
     {
         private SoftContext softContext = new SoftContext();
 
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 2)
+        public ActionResult Index()
         {
-            var articles = softContext.MainArticles.AsQueryable();
-            if(string.IsNullOrWhiteSpace(searchString) == false)
-            {
-                articles = articles.Where(d => d.Subject.Contains(searchString));
-            }
-            var result = articles.OrderBy(num => num.PublichDate).ToPagedList(page, pageSize);
-            return View(result);
+            return View(softContext.MainThemes.ToList());
         }
     }
 }

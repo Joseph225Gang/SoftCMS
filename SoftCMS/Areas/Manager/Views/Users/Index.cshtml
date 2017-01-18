@@ -32,12 +32,14 @@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            @Html.ActionLink("刪除", "Delete", new { id=item.Id })
+            @Html.ActionLink("刪除", "Delete", new { id=item.Id }, new { onclick = "return confirm('確定要刪除嗎?');" })
         </td>
     </tr>
 }
 
 </table>
+@Html.ActionLink("主題首頁", "Index", "MainThemes")<br />
+@Html.ActionLink("論壇首頁", "Index", "Forum")<br />
 @Html.ActionLink("文章首頁", "Index", "MainArticleModels")<br />
 @Html.ActionLink("回文首頁", "Index", "ReplyModels")<br />
 @Html.ActionLink("返回首頁", "Index", "Home", new { area = "" }, new { @id = "register" })
