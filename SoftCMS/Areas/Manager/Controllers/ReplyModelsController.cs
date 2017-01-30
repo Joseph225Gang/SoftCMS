@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
+using System.Threading.Tasks;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -15,10 +16,10 @@ namespace SoftCMS.Areas.Manager.Controllers
         private SoftContext db = new SoftContext();
 
         // GET: Manager/ReplyModels
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var replies = db.Replies.Include(r => r.mainArticle);
-            return View(replies.ToList());
+            return View(await replies.ToListAsync());
         }
 
         // GET: Manager/ReplyModels/Delete/5
@@ -41,9 +42,16 @@ namespace SoftCMS.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            ReplyModel replyModel = db.Replies.Find(id);
-            db.Replies.Remove(replyModel);
-            db.SaveChanges();
+            try
+            {
+                ReplyModel replyModel = db.Replies.Find(id);
+                db.Replies.Remove(replyModel);
+                db.SaveChanges();
+            }
+            catch(DataException)
+            {
+                return RedirectToAction("DataError", "Error", new { area = "",message = "刪除錯誤" });
+            }
             return RedirectToAction("Index");
         }
 

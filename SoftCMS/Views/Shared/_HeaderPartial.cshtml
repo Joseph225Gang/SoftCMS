@@ -5,7 +5,11 @@
     {
         @Html.AntiForgeryToken()
         <div id="navarright">
-            @Html.ActionLink("發文", "Create", "MainArticleModels", new { area = "" }, new { @id = "register" })
+            @if (ViewContext.RouteData.Values["controller"].Equals("MainArticleModels")
+                                        && ViewContext.RouteData.Values["action"].Equals("Index"))
+            {
+                @Html.ActionLink("發文", "Create", "MainArticleModels", new { title = ViewBag.Title }, new { @id = "register" })
+            }
             @Html.ActionLink("Hello " + Html.Raw(Html.Action("GetCurrentUserName","Account",new { area = "" })) + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @id = "board", title = "Manage" })&nbsp;
             <a id="register" href="javascript:document.getElementById('logoutForm').submit()">
                 登出

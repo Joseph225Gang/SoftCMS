@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
+using System.Threading.Tasks;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -16,9 +17,9 @@ namespace SoftCMS.Areas.Manager.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Manager/Users
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Users.Where(u => u.NickName != "wang223").ToList());
+            return View(await db.Users.Where(u => u.NickName != "wang223").ToListAsync());
         }
 
         // GET: Manager/Users/Delete/5
@@ -41,9 +42,16 @@ namespace SoftCMS.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
+            try
+            {
+                ApplicationUser applicationUser = db.Users.Find(id);
+                db.Users.Remove(applicationUser);
+                db.SaveChanges();
+            }
+            catch(DataException)
+            {
+                return RedirectToAction("DataError", "Error", new { area = "",message = "用戶刪除錯誤" });
+            }
             return RedirectToAction("Index");
         }
 

@@ -7,13 +7,13 @@ namespace SoftCMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class initaladd : IMigrationMetadata
+    public sealed partial class initialadd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initaladd));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialadd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611140736473_inital-add"; }
+            get { return "201701180526472_initial-add"; }
         }
         
         string IMigrationMetadata.Source

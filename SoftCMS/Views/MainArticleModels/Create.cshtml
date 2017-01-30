@@ -1,9 +1,9 @@
 ﻿@model SoftCMS.Models.MainArticleModel
 
 @{
-    ViewBag.Title = "Create";
+    TempData["Forum"] = ViewBag.Theme;
+    TempData.Keep("Forum");
 }
-
 
 <div id="board">
     <h2>發文</h2>

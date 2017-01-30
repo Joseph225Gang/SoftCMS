@@ -11,6 +11,7 @@ using System.Net;
 using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
 using System;
+using System.IO;
 
 namespace SoftCMS.Controllers
 {
@@ -121,15 +122,22 @@ namespace SoftCMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(HttpPostedFileBase file, RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
+                Byte[] bytes = null;
+                Stream fs = file.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+
                 var user = new ApplicationUser {
                     UserName = model.Email,
                     Email = model.Email,
-                    NickName = model.NickName
-                    };
+                    NickName = model.NickName,
+                    PhotoImageType = file.ContentType,
+                    PhotoImage = bytes
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
                 if (result.Succeeded)
@@ -280,6 +288,15 @@ namespace SoftCMS.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ViewImage()
+        {
+            var user = UserManager.FindByEmail(User.Identity.GetUserName());
+            if (user != null)
+                return File(user.PhotoImage, user.PhotoImageType);
+            else
+                return HttpNotFound();
+        }
 
         //
         // GET: /Account/ExternalLoginFailure
