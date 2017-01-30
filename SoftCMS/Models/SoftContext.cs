@@ -22,10 +22,6 @@ namespace SoftCMS.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-            modelBuilder.Entity<Forum>()
-                .Property(f=> f.PublichDate)
-                .HasColumnType("datetime2")
-                .HasPrecision(0);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<MainThemes>()
                 .HasMany<Forum>(s => s.Topics)
