@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
+using SoftCMS.IDatabaseRepository;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -15,6 +16,12 @@ namespace SoftCMS.Areas.Manager.Controllers
     public class MainThemesController : Controller
     {
         private SoftContext db = new SoftContext();
+        private IDatabaseRepository.IDatabaseRepository repository = null;
+
+        public MainThemesController()
+        {
+            this.repository = new MainThemeRepository();
+        }
 
         // GET: Manager/MainThemes
         public async Task<ActionResult> Index()
@@ -33,17 +40,13 @@ namespace SoftCMS.Areas.Manager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ContentText,PublichDate,CreateUser")] MainThemes mainThemes)
+        async public Task<ActionResult> Create([Bind(Include = "ID,ContentText,PublichDate,CreateUser")] MainThemes mainThemes)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    mainThemes.ID = Guid.NewGuid();
-                    mainThemes.CreateUser = User.Identity.Name;
-                    mainThemes.PublichDate = DateTime.Now;
-                    db.MainThemes.Add(mainThemes);
-                    await db.SaveChangesAsync();
+                    await repository.Insert(mainThemes);
                     return RedirectToAction("Index");
                 }
             }
@@ -75,14 +78,13 @@ namespace SoftCMS.Areas.Manager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ContentText,PublichDate,CreateUser")] MainThemes mainThemes)
+        async public Task<ActionResult> Edit([Bind(Include = "ID,ContentText,PublichDate,CreateUser")] MainThemes mainThemes)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(mainThemes).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    await repository.Update(mainThemes);
                     return RedirectToAction("Index");
                 }
             }
@@ -111,13 +113,11 @@ namespace SoftCMS.Areas.Manager.Controllers
         // POST: Manager/MainThemes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(Guid id)
+        async public Task<ActionResult> DeleteConfirmed(Guid id)
         {
             try
             {
-                MainThemes mainThemes = await db.MainThemes.FindAsync(id);
-                db.MainThemes.Remove(mainThemes);
-                await db.SaveChangesAsync();
+                await repository.Delete(id);
             }
             catch (DataException)
             {

@@ -232,9 +232,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701180526472_initial-add.cs" />
-    <Compile Include="Migrations\201701180526472_initial-add.Designer.cs">
-      <DependentUpon>201701180526472_initial-add.cs</DependentUpon>
+    <Compile Include="IDatabaseRepository\ForumRepository.cs" />
+    <Compile Include="IDatabaseRepository\IDatabaseRepository.cs" />
+    <Compile Include="IDatabaseRepository\MainThemeRepository.cs" />
+    <Compile Include="Migrations\201701300858408_initial-add1.cs" />
+    <Compile Include="Migrations\201701300858408_initial-add1.Designer.cs">
+      <DependentUpon>201701300858408_initial-add1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -369,8 +372,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701180526472_initial-add.resx">
-      <DependentUpon>201701180526472_initial-add.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701300858408_initial-add1.resx">
+      <DependentUpon>201701300858408_initial-add1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

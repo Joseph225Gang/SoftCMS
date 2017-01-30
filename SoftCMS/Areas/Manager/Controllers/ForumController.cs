@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
+using SoftCMS.IDatabaseRepository;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -15,6 +16,12 @@ namespace SoftCMS.Areas.Manager.Controllers
     public class ForumController : Controller
     {
         private SoftContext db = new SoftContext();
+        private IDatabaseRepository.IDatabaseRepository repository = null;
+
+        public ForumController()
+        {
+            this.repository = new ForumRepository();
+        }
 
         // GET: Manager/Forum
         public async Task<ActionResult> Index()
@@ -41,10 +48,7 @@ namespace SoftCMS.Areas.Manager.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    forum.ID = Guid.NewGuid();
-                    forum.CreateUser = User.Identity.Name;
-                    db.Categories.Add(forum);
-                    await db.SaveChangesAsync();
+                    await repository.Insert(forum);
                     return RedirectToAction("Index");
                 }
             }
@@ -78,14 +82,13 @@ namespace SoftCMS.Areas.Manager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,TopicID,ContentText,PublichDate,CreateUser")] Forum forum)
+        async public Task<ActionResult> Edit([Bind(Include = "ID,TopicID,ContentText,PublichDate,CreateUser")] Forum forum)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(forum).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
+                    await repository.Update(forum);
                     return RedirectToAction("Index");
                 }
             }
@@ -119,9 +122,7 @@ namespace SoftCMS.Areas.Manager.Controllers
         {
             try
             {
-                Forum forum = await db.Categories.FindAsync(id);
-                db.Categories.Remove(forum);
-                await db.SaveChangesAsync();
+                await repository.Delete(id);
             }
             catch (DataException)
             {

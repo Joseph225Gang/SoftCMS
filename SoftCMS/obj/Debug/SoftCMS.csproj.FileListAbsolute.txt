@@ -87,5 +87,5 @@ D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\bin\PagedList.Mvc.xml
 D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\bin\Recaptcha.Web.dll
 D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\bin\Elmah.dll
 D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\bin\Elmah.Mvc.dll
-D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\obj\Debug\SoftCMS.Migrations.initialadd.resources
+D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\obj\Debug\SoftCMS.Migrations.initialadd1.resources
 D:\c sharp\Visual Studio 2015\自己練習\SoftCMS\SoftCMS\obj\Debug\SoftCMS.csproj.GenerateResource.Cache
