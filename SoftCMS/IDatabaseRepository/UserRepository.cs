@@ -9,7 +9,9 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class UserRepository : IDatabaseRepository
     {
+        private DataBaseInitialize dataSave = new ApplicationUserInitialize();
         private ApplicationDbContext db = null;
+
         public UserRepository()
         {
             db = new ApplicationDbContext();
@@ -20,27 +22,17 @@ namespace SoftCMS.IDatabaseRepository
             this.db = db;
         }
 
-        public void Browse()
-        {
-            throw new NotImplementedException();
-        }
-
         async public Task Delete(Guid id)
         {
             string guid = id.ToString();
             ApplicationUser applicationUser = db.Users.Find(guid);
             db.Users.Remove(applicationUser);
-            await Save();
+            await dataSave.Save(db);
         }
 
         public Task Insert(object obj)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task Save()
-        {
-            await db.SaveChangesAsync();
         }
 
         public Task Update(object obj)

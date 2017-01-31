@@ -9,6 +9,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class ReplyModelRepository : IDatabaseRepository
     {
+        private DataBaseInitialize dataSave = new SoftContextInitialize();
         private SoftContext db = null;
 
         public ReplyModelRepository()
@@ -21,26 +22,16 @@ namespace SoftCMS.IDatabaseRepository
             this.db = db;
         }
 
-        public void Browse()
-        {
-            throw new NotImplementedException();
-        }
-
         async public Task Delete(Guid id)
         {
             ReplyModel replyModel = db.Replies.Find(id);
             db.Replies.Remove(replyModel);
-            await Save();
+            await dataSave.Save(db);
         }
 
         public Task Insert(object obj)
         {
             throw new NotImplementedException();
-        }
-
-        async public Task Save()
-        {
-            await db.SaveChangesAsync();
         }
 
         public Task Update(object obj)

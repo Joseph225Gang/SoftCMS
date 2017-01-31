@@ -232,11 +232,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDatabaseRepository\ApplicationUserObject.cs" />
+    <Compile Include="IDatabaseRepository\DataBaseObject.cs" />
     <Compile Include="IDatabaseRepository\ForumRepository.cs" />
     <Compile Include="IDatabaseRepository\IDatabaseRepository.cs" />
     <Compile Include="IDatabaseRepository\MainArticleModelRepository.cs" />
     <Compile Include="IDatabaseRepository\MainThemeRepository.cs" />
     <Compile Include="IDatabaseRepository\ReplyModelRepository.cs" />
+    <Compile Include="IDatabaseRepository\SoftContextInitialize.cs" />
     <Compile Include="IDatabaseRepository\UserRepository.cs" />
     <Compile Include="Migrations\201701300858408_initial-add1.cs" />
     <Compile Include="Migrations\201701300858408_initial-add1.Designer.cs">

@@ -11,6 +11,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class MainArticleModelRepository : IDatabaseRepository
     {
+        private DataBaseInitialize dataSave = new SoftContextInitialize();
         private SoftContext db = null;
 
         public MainArticleModelRepository()
@@ -23,16 +24,11 @@ namespace SoftCMS.IDatabaseRepository
             this.db = db;
         }
 
-        public void Browse()
-        {
-            throw new NotImplementedException();
-        }
-
         async public Task Delete(Guid id)
         {
             MainArticleModel mainArticleModel = db.MainArticles.Find(id);
             db.MainArticles.Remove(mainArticleModel);
-            await Save();
+            await dataSave.Save(db);
         }
 
         async public Task Insert(object obj)
@@ -43,12 +39,7 @@ namespace SoftCMS.IDatabaseRepository
             mainArticleModel.PublichDate = DateTime.Now;
             mainArticleModel.ReplyCount = 0;
             db.MainArticles.Add(mainArticleModel);
-            await Save();
-        }
-
-        async public Task Save()
-        {
-            await db.SaveChangesAsync();
+            await dataSave.Save(db);
         }
 
         async public Task Update(object obj)
@@ -60,7 +51,7 @@ namespace SoftCMS.IDatabaseRepository
             MainArticleModel article = await db.MainArticles.FindAsync(replyModel.reply.ArticleID);
             article.ReplyCount = article.replyArticles.ToList().Count() + 1;
             db.Replies.Add(replyModel.reply);
-            await Save();
+            await dataSave.Save(db);
         }
     }
 }
