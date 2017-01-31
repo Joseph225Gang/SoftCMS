@@ -20,7 +20,7 @@ namespace SoftCMS.Areas.Manager.Controllers
 
         public ForumController()
         {
-            this.repository = new ForumRepository();
+            this.repository = new ForumRepository(db);
         }
 
         // GET: Manager/Forum

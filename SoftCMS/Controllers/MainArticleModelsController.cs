@@ -10,6 +10,7 @@ using SoftCMS.Models;
 using SoftCMS.ViewModel;
 using System.Threading.Tasks;
 using PagedList;
+using SoftCMS.IDatabaseRepository;
 
 namespace SoftCMS.Controllers
 {
@@ -17,6 +18,12 @@ namespace SoftCMS.Controllers
     public class MainArticleModelsController : Controller
     {
         private SoftContext db = new SoftContext();
+        private IDatabaseRepository.IDatabaseRepository repository = null;
+
+        public MainArticleModelsController()
+        {
+            this.repository = new MainArticleModelRepository(db);
+        }
 
         public ActionResult Index(string title, int page = 1, int pageSize = 2)
         {
@@ -46,12 +53,7 @@ namespace SoftCMS.Controllers
                 if (ModelState.IsValid)
                 {
                     mainArticleModel.Forum = db.Categories.Where(c => c.ContentText.Equals(forum)).First();
-                    mainArticleModel.ID = Guid.NewGuid();
-                    mainArticleModel.CreateUser = User.Identity.Name;
-                    mainArticleModel.PublichDate = DateTime.Now;
-                    mainArticleModel.ReplyCount = 0;
-                    db.MainArticles.Add(mainArticleModel);
-                    await db.SaveChangesAsync();
+                    await repository.Insert(mainArticleModel);
                     return RedirectToAction("Index", "MainArticleModels",new { title = forum });
                 }
             }
@@ -91,15 +93,9 @@ namespace SoftCMS.Controllers
                 if (ModelState.IsValid)
                 {
                     string subject = TempData["subject"].ToString();
-                    replyModel.reply.ID = Guid.NewGuid();
                     replyModel.reply.ArticleID = db.MainArticles.Where(u => u.ID.ToString().Equals(subject)).Single().ID;
                     replyModel.reply.ArticelMaker = db.MainArticles.Where(u => u.ID.Equals(replyModel.reply.ArticleID)).SingleOrDefault().CreateUser;
-                    replyModel.reply.CreateUser = User.Identity.Name;
-                    replyModel.reply.PublichDate = DateTime.Now;
-                    MainArticleModel article = await db.MainArticles.FindAsync(replyModel.reply.ArticleID);
-                    article.ReplyCount = article.replyArticles.ToList().Count() + 1;
-                    db.Replies.Add(replyModel.reply);
-                    db.SaveChanges();
+                    await repository.Update(replyModel);
                     return RedirectToAction("Details", "MainArticleModels", new { id = replyModel.reply.ArticleID });
                 }
             }

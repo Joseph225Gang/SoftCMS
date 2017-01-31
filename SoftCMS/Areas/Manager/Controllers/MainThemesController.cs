@@ -20,7 +20,7 @@ namespace SoftCMS.Areas.Manager.Controllers
 
         public MainThemesController()
         {
-            this.repository = new MainThemeRepository();
+            this.repository = new MainThemeRepository(db);
         }
 
         // GET: Manager/MainThemes

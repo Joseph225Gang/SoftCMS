@@ -8,12 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
 using System.Threading.Tasks;
+using SoftCMS.IDatabaseRepository;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
     public class ReplyModelsController : Controller
     {
         private SoftContext db = new SoftContext();
+        private IDatabaseRepository.IDatabaseRepository repository = null;
+
+        public ReplyModelsController()
+        {
+            this.repository = new ReplyModelRepository(db);
+        }
 
         // GET: Manager/ReplyModels
         public async Task<ActionResult> Index()
@@ -44,8 +51,7 @@ namespace SoftCMS.Areas.Manager.Controllers
         {
             try
             {
-                ReplyModel replyModel = db.Replies.Find(id);
-                db.Replies.Remove(replyModel);
+                repository.Delete(id);
                 db.SaveChanges();
             }
             catch(DataException)
