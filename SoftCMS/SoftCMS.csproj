@@ -232,8 +232,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IDatabaseRepository\ApplicationUserObject.cs" />
-    <Compile Include="IDatabaseRepository\DataBaseObject.cs" />
+    <Compile Include="IDatabaseRepository\ApplicationUserInitialize.cs" />
+    <Compile Include="IDatabaseRepository\DataBaseInitialize.cs" />
     <Compile Include="IDatabaseRepository\ForumRepository.cs" />
     <Compile Include="IDatabaseRepository\IDatabaseRepository.cs" />
     <Compile Include="IDatabaseRepository\MainArticleModelRepository.cs" />
