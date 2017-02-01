@@ -9,7 +9,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class ReplyModelRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dataSave = new SoftContextInitialize();
+        private DataBaseInitialize dbSave = new SoftContextInitialize();
         private SoftContext db = null;
 
         public ReplyModelRepository()
@@ -26,7 +26,7 @@ namespace SoftCMS.IDatabaseRepository
         {
             ReplyModel replyModel = db.Replies.Find(id);
             db.Replies.Remove(replyModel);
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
 
         public Task Insert(object obj)

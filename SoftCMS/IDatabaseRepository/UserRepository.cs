@@ -9,7 +9,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class UserRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dataSave = new ApplicationUserInitialize();
+        private DataBaseInitialize dbSave = new ApplicationUserInitialize();
         private ApplicationDbContext db = null;
 
         public UserRepository()
@@ -27,7 +27,7 @@ namespace SoftCMS.IDatabaseRepository
             string guid = id.ToString();
             ApplicationUser applicationUser = db.Users.Find(guid);
             db.Users.Remove(applicationUser);
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
 
         public Task Insert(object obj)

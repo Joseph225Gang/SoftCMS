@@ -10,7 +10,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class MainThemeRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dataSave = new SoftContextInitialize();
+        private DataBaseInitialize dbSave = new SoftContextInitialize();
         private SoftContext db = null;
 
         public MainThemeRepository()
@@ -27,7 +27,7 @@ namespace SoftCMS.IDatabaseRepository
         {
             MainThemes mainThemes = await db.MainThemes.FindAsync(id);
             db.MainThemes.Remove(mainThemes);
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
 
         async public Task Insert(object obj)
@@ -37,14 +37,14 @@ namespace SoftCMS.IDatabaseRepository
             mainThemes.CreateUser = HttpContext.Current.User.Identity.Name;
             mainThemes.PublichDate = DateTime.Now;
             db.MainThemes.Add(mainThemes);
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
 
         async public Task Update(object obj)
         {
             MainThemes mainThemes = obj as MainThemes;
             db.Entry(mainThemes).State = EntityState.Modified;
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
     }
 }

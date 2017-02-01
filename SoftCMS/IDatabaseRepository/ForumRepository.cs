@@ -13,7 +13,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class ForumRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dataSave = new SoftContextInitialize();
+        private DataBaseInitialize dbSave = new SoftContextInitialize();
         private SoftContext db = null;
 
         public ForumRepository()
@@ -30,7 +30,7 @@ namespace SoftCMS.IDatabaseRepository
         {
              Forum forum = await db.Categories.FindAsync(id);
              db.Categories.Remove(forum);
-             await dataSave.Save(db);
+             await dbSave.Save(db);
         }
 
         async public Task Insert(object obj)
@@ -40,14 +40,14 @@ namespace SoftCMS.IDatabaseRepository
             forum.CreateUser = HttpContext.Current.User.Identity.Name;
             forum.PublichDate = DateTime.Now;
             db.Categories.Add(forum);
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
 
         async public Task Update(object obj)
         {
             Forum forum = obj as Forum;
             db.Entry(forum).State = EntityState.Modified;
-            await dataSave.Save(db);
+            await dbSave.Save(db);
         }
     }
 }
