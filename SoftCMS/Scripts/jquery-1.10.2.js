@@ -3725,7 +3725,7 @@ function internalRemoveData( elem, name, pvt ) {
 
 			// If there is no data left in the cache, we want to continue
 			// and let the cache object itself get destroyed
-			if ( pvt ? !isEmptyDataObject(thisCache) : !jQuery.isEmptyObject(thisCache) ) {
+			if ( pvt ? !isEmptydbSaveect(thisCache) : !jQuery.isEmptyObject(thisCache) ) {
 				return;
 			}
 		}
@@ -3737,7 +3737,7 @@ function internalRemoveData( elem, name, pvt ) {
 
 		// Don't destroy the parent cache unless the internal data object
 		// had been the only thing left in it
-		if ( !isEmptyDataObject( cache[ id ] ) ) {
+		if ( !isEmptydbSaveect( cache[ id ] ) ) {
 			return;
 		}
 	}
@@ -3772,7 +3772,7 @@ jQuery.extend({
 
 	hasData: function( elem ) {
 		elem = elem.nodeType ? jQuery.cache[ elem[jQuery.expando] ] : elem[ jQuery.expando ];
-		return !!elem && !isEmptyDataObject( elem );
+		return !!elem && !isEmptydbSaveect( elem );
 	},
 
 	data: function( elem, name, data ) {
@@ -3897,7 +3897,7 @@ function dataAttr( elem, key, data ) {
 }
 
 // checks a cache object for emptiness
-function isEmptyDataObject( obj ) {
+function isEmptydbSaveect( obj ) {
 	var name;
 	for ( name in obj ) {
 

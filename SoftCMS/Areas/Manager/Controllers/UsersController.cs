@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SoftCMS.Models;
 using System.Threading.Tasks;
+using SoftCMS.IDatabaseRepository;
 
 namespace SoftCMS.Areas.Manager.Controllers
 {
@@ -15,6 +16,13 @@ namespace SoftCMS.Areas.Manager.Controllers
     public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private IDatabaseRepository.IDatabaseRepository repository = null;
+
+        public UsersController()
+        {
+            this.repository = new UserRepository(db);
+        }
 
         // GET: Manager/Users
         public async Task<ActionResult> Index()
@@ -40,13 +48,12 @@ namespace SoftCMS.Areas.Manager.Controllers
         // POST: Manager/Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        async public Task<ActionResult> DeleteConfirmed(string id)
         {
             try
             {
-                ApplicationUser applicationUser = db.Users.Find(id);
-                db.Users.Remove(applicationUser);
-                db.SaveChanges();
+                Guid userId = new Guid(id);
+                await repository.Delete(userId);
             }
             catch(DataException)
             {
