@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace SoftCMS.Models
 {
@@ -10,6 +11,9 @@ namespace SoftCMS.Models
     public class ApplicationUser : IdentityUser
     {
         public string NickName { get; set; }
+        public byte[] PhotoImage { get; set; }
+        [RegularExpression(@"image/(jpeg|png|gif)$",ErrorMessage ="結尾必須是jpg,png和gif檔")]
+        public string PhotoImageType { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -30,5 +34,7 @@ namespace SoftCMS.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SoftCMS.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

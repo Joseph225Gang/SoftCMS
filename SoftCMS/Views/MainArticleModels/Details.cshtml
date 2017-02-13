@@ -29,7 +29,8 @@
             @Html.DisplayNameFor(model => model.article.ContentText)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.article.ContentText)
+            @Html.Raw(Model.article.ContentText.Replace(Environment.NewLine, "<br/>"))
+            @*<pre style="font-size:24px;font-family:Helvetica Neue,Helvetica, Arial, sans-serif;color:white;background-color:darkslategrey;border:none;padding:0px;">@Model.article.ContentText</pre>*@
         </dd>
     </dl>
 </div>
@@ -43,19 +44,19 @@
             @Html.DisplayFor(modelItem => item.ContentText)
         </span>
     </div>
-        <div id="article_date" class="container-fluid">
-            @Html.DisplayFor(modelItem => item.PublichDate)
-        </div>
+    <div id="article_date" class="container-fluid">
+        @Html.DisplayFor(modelItem => item.PublichDate)
+    </div>
 }
 @if (Request.IsAuthenticated)
-            {
-                TempData["subject"] = Model.article.Subject;
-                TempData.Keep("subject");
-                using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
+{
+    TempData["subject"] = Model.article.ID.ToString();
+    TempData.Keep("subject");
+    using (Ajax.BeginForm("Details", "MainArticleModels", new AjaxOptions()))
+    {
+        @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
+        <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -71,5 +72,5 @@
                 </div>
             </div>
         </div>
-}
+    }
 }

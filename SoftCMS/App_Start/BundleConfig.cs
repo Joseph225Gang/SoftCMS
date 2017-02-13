@@ -25,7 +25,7 @@ namespace SoftCMS
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/header.css",
+                      "~/Content/layout.min.css",
                       "~/Content/site.css"));
         }
     }

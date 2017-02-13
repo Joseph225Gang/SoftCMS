@@ -11,6 +11,9 @@ using System.Net;
 using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
 using System;
+using System.IO;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace SoftCMS.Controllers
 {
@@ -121,38 +124,53 @@ namespace SoftCMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(HttpPostedFileBase file, RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    NickName = model.NickName
-                    };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var roleName = "Customer";
-                    if(roleManager.RoleExists(roleName) == false)
+                    Byte[] bytes = null;
+                    Stream fs = file.InputStream;
+                    BinaryReader br = new BinaryReader(fs);
+                    bytes = br.ReadBytes((Int32)fs.Length);
+
+                    var user = new ApplicationUser
                     {
-                        var role = new IdentityRole(roleName);
-                        await roleManager.CreateAsync(role);
+                        UserName = model.Email,
+                        Email = model.Email,
+                        NickName = model.NickName,
+                        PhotoImageType = file.ContentType,
+                        PhotoImage = bytes
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var roleName = "Customer";
+                        if (roleManager.RoleExists(roleName) == false)
+                        {
+                            var role = new IdentityRole(roleName);
+                            await roleManager.CreateAsync(role);
+                        }
+                        await UserManager.AddToRoleAsync(user.Id, roleName);
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
                     }
-                    await UserManager.AddToRoleAsync(user.Id, roleName);
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
-
+            catch (DbEntityValidationException e)
+            {
+                string errorMessages = string.Join("; ", e.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
+                throw new DbEntityValidationException(errorMessages);
+            }
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -280,6 +298,15 @@ namespace SoftCMS.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult ViewImage()
+        {
+            var user = UserManager.FindByEmail(User.Identity.GetUserName());
+            if (user != null)
+                return File(user.PhotoImage, user.PhotoImageType);
+            else
+                return HttpNotFound();
+        }
 
         //
         // GET: /Account/ExternalLoginFailure

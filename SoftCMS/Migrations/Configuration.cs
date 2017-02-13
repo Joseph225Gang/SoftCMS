@@ -5,14 +5,14 @@ namespace SoftCMS.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SoftCMS.Models.SoftContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SoftCMS.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SoftCMS.Models.SoftContext context)
+        protected override void Seed(SoftCMS.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
