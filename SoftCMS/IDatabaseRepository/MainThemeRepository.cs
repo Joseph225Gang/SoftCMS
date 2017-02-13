@@ -10,7 +10,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class MainThemeRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dbSave = new SoftContextInitialize();
+        private DbInit dbSave = new SoftContextInit();
         private SoftContext db = null;
 
         public MainThemeRepository()

@@ -60,6 +60,39 @@ namespace SoftCMS.Areas.Manager.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Manager/MainArticleModels1/Edit/5
+        public async Task<ActionResult> Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MainArticleModel mainArticleModel = await db.MainArticles.FindAsync(id);
+            if (mainArticleModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ForumID = new SelectList(db.Categories, "ID", "ContentText", mainArticleModel.ForumID);
+            return View(mainArticleModel);
+        }
+
+        // POST: Manager/MainArticleModels1/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public async Task<ActionResult> Edit([Bind(Include = "ForumID,Subject,ContentText")] MainArticleModel mainArticleModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await repository.Update(mainArticleModel);
+                return RedirectToAction("Index");
+            }
+            ViewBag.ForumID = new SelectList(db.Categories, "ID", "ContentText", mainArticleModel.ForumID);
+            return View(mainArticleModel);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

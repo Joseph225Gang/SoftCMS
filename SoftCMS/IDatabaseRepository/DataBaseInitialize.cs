@@ -8,7 +8,7 @@ using System.Web;
 
 namespace SoftCMS.IDatabaseRepository
 {
-    interface DataBaseInitialize
+    interface DbInit
     {
         Task Save(DbContext obj);
     }

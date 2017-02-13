@@ -13,7 +13,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class ForumRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dbSave = new SoftContextInitialize();
+        private DbInit dbSave = new SoftContextInit();
         private SoftContext db = null;
 
         public ForumRepository()

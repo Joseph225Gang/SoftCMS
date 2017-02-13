@@ -1,4 +1,5 @@
 ﻿using SoftCMS.Models;
+using SoftCMS.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class ReplyModelRepository : IDatabaseRepository
     {
-        private DataBaseInitialize dbSave = new SoftContextInitialize();
+        private DbInit dbSave = new SoftContextInit();
         private SoftContext db = null;
 
         public ReplyModelRepository()
@@ -29,14 +30,22 @@ namespace SoftCMS.IDatabaseRepository
             await dbSave.Save(db);
         }
 
-        public Task Insert(object obj)
+        public async Task Insert(object obj)
         {
-            throw new NotImplementedException();
+            ArticleAndReplyModel replyModel = obj as ArticleAndReplyModel;
+            replyModel.reply.ID = Guid.NewGuid();
+            replyModel.reply.CreateUser = HttpContext.Current.User.Identity.Name;
+            replyModel.reply.PublichDate = DateTime.Now;
+            MainArticleModel article = await db.MainArticles.FindAsync(replyModel.reply.ArticleID);
+            article.ReplyCount = article.replyArticles.ToList().Count() + 1;
+            db.Replies.Add(replyModel.reply);
+            await dbSave.Save(db);
         }
 
-        public Task Update(object obj)
+        public async Task Update(object obj)
         {
-            throw new NotImplementedException();
+            ReplyModel replyModel = obj as ReplyModel;
+            await dbSave.Save(db);
         }
     }
 }

@@ -24,13 +24,17 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ContentText, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.ContentText, new { @cols = 50, @rows = 8, htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ContentText, "", new { @class = "text-danger" })
+                    @Html.TextArea("ContentText", new { @cols = 50, @rows = 8, htmlAttributes = new { @class = "form-control" } })
+                    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+                    <script type="text/javascript" language="javascript">
+                        var editor = CKEDITOR.editor.replace('ContentText', { skin: 'kama', width: '800px' });
+                    </script>
+                    @*@Html.ValidationMessageFor(model => model.ContentText, "", new { @class = "text-danger" })*@
                 </div>
             </div>
-            @Html.HiddenFor(model => model.PublichDate)
+            @*@Html.HiddenFor(model => model.PublichDate)
             @Html.HiddenFor(model => model.CreateUser)
-            @Html.HiddenFor(model => model.ReplyCount)
+            @Html.HiddenFor(model => model.ReplyCount)*@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="發文" class="btn btn-default" />

@@ -45,6 +45,7 @@ namespace SoftCMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public async Task<ActionResult> Create([Bind(Include = "Subject,ContentText")] MainArticleModel mainArticleModel)
         {
             string forum = TempData["Forum"].ToString();
@@ -95,7 +96,8 @@ namespace SoftCMS.Controllers
                     string subject = TempData["subject"].ToString();
                     replyModel.reply.ArticleID = db.MainArticles.Where(u => u.ID.ToString().Equals(subject)).Single().ID;
                     replyModel.reply.ArticelMaker = db.MainArticles.Where(u => u.ID.Equals(replyModel.reply.ArticleID)).SingleOrDefault().CreateUser;
-                    await repository.Update(replyModel);
+                    repository = new ReplyModelRepository(db);
+                    await repository.Insert(replyModel);
                     return RedirectToAction("Details", "MainArticleModels", new { id = replyModel.reply.ArticleID });
                 }
             }
@@ -104,6 +106,38 @@ namespace SoftCMS.Controllers
                 return RedirectToAction("DataError", "Error", new { message = "用戶儲存錯誤"});
             }
             return View(replyModel);
+        }
+        // GET: Manager/MainArticleModels1/Edit/5
+        public async Task<ActionResult> Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MainArticleModel mainArticleModel = await db.MainArticles.FindAsync(id);
+            if (mainArticleModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ForumID = new SelectList(db.Categories, "ID", "ContentText", mainArticleModel.ForumID);
+            return View(mainArticleModel);
+        }
+
+        // POST: Manager/MainArticleModels1/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "ID,ForumID,Subject,ReplyCount,ContentText,PublichDate,CreateUser")] MainArticleModel mainArticleModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(mainArticleModel).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ForumID = new SelectList(db.Categories, "ID", "ContentText", mainArticleModel.ForumID);
+            return View(mainArticleModel);
         }
         protected override void Dispose(bool disposing)
         {

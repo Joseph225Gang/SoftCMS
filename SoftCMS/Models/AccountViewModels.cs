@@ -83,8 +83,6 @@ namespace SoftCMS.Models
         [Required]
         [StringLength(20,ErrorMessage ="{0}的長度至少必須為{2}個字元。",MinimumLength =2)]
         public string NickName { get; set; }
-        public byte[] PhotoImage { get; set; }
-        public string PPhotoImageType { get; set; }
     }
 
     public class ResetPasswordViewModel

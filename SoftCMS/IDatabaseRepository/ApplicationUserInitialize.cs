@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SoftCMS.IDatabaseRepository
 {
-    public class ApplicationUserInitialize : DataBaseInitialize
+    public class ApplicationUserInit : DbInit
     {
         async public Task Save(DbContext obj)
         {
