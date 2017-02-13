@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SoftCMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MainArticleModel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" />
+    <Property Name="ReplyCount" Type="int" Nullable="false" />
+    <Property Name="ContentText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PublichDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateUser" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ReplyModel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ArticleID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ArticelMaker" Type="nvarchar(max)" />
+    <Property Name="ContentText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PublichDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateUser" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_dbo_ReplyModel_dbo_MainArticleModel_ArticleID">
+    <End Role="MainArticleModel" Type="Self.MainArticleModel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ReplyModel" Type="Self.ReplyModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MainArticleModel">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReplyModel">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SoftCMSModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainArticleModel" EntityType="Self.MainArticleModel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReplyModel" EntityType="Self.ReplyModel" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_ReplyModel_dbo_MainArticleModel_ArticleID" Association="Self.FK_dbo_ReplyModel_dbo_MainArticleModel_ArticleID">
+      <End Role="MainArticleModel" EntitySet="MainArticleModel" />
+      <End Role="ReplyModel" EntitySet="ReplyModel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

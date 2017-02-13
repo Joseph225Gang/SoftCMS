@@ -1,0 +1,63 @@
+﻿@model SoftCMS.Models.MainArticleModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_SoftLayout.cshtml";
+}
+
+<h2>刪除</h2>
+<div id="article_view" style="color:white;">
+    <h4>MainArticleModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReplyCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublichDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublichDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateUser)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="刪除" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
