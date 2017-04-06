@@ -21,7 +21,12 @@ namespace SoftCMS
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+<<<<<<< HEAD
                       "~/Scripts/respond.js"));
+=======
+                      "~/Scripts/respond.js"
+                      ));
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

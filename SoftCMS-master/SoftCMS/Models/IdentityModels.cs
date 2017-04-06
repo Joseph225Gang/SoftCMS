@@ -3,6 +3,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+<<<<<<< HEAD
+=======
+using System.ComponentModel.DataAnnotations;
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 
 namespace SoftCMS.Models
 {
@@ -11,6 +15,10 @@ namespace SoftCMS.Models
     {
         public string NickName { get; set; }
         public byte[] PhotoImage { get; set; }
+<<<<<<< HEAD
+=======
+        [RegularExpression(@"image/(jpeg|png|gif)$",ErrorMessage ="結尾必須是jpg,png和gif檔")]
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         public string PhotoImageType { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -32,5 +40,10 @@ namespace SoftCMS.Models
         {
             return new ApplicationDbContext();
         }
+<<<<<<< HEAD
+=======
+
+        //public System.Data.Entity.DbSet<SoftCMS.Models.ApplicationUser> ApplicationUsers { get; set; }
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
     }
 }

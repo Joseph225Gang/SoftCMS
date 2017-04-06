@@ -45,7 +45,14 @@
             @Html.DisplayFor(modelItem => item.CreateUser)
         </td>
         <td>
+<<<<<<< HEAD
             @Html.ActionLink("刪除", "Delete", new { id=item.ID }, new { onclick = "return confirm('確定要刪除嗎?');" }) | 
+=======
+            @Html.ActionLink("修改", "Edit", new { id = item.ID }) 
+        </td>
+        <td>
+            @Html.ActionLink("刪除", "Delete", new { id=item.ID }, new { onclick = "return confirm('確定要刪除嗎?');" })  
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         </td>
     </tr>
 }

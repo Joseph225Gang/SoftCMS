@@ -6,7 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+<<<<<<< HEAD
     
+=======
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 </head>
 <body style="background-color:darkslategrey;">
     <div id="navarblcok" class="container-fluid">
@@ -15,6 +20,12 @@
         </div>
         @Html.Partial("_HeaderPartial")
    </div>
+<<<<<<< HEAD
+=======
+    <div id="countView">
+        @Html.Partial("_VisitorCountPartial")
+    </div>
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -22,9 +33,12 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+<<<<<<< HEAD
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+=======
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -46,4 +46,16 @@
 }
 #page {
   position: relative;
+<<<<<<< HEAD
+=======
+}
+#countView {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  background-color: black;
+  color: #fff;
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 }

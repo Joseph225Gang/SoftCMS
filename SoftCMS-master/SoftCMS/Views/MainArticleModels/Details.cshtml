@@ -29,8 +29,13 @@
             @Html.DisplayNameFor(model => model.article.ContentText)
         </dt>
         <dd>
+<<<<<<< HEAD
             @*@Html.Raw(Model.article.ContentText.Replace(Environment.NewLine, "<br/>"))*@
             <pre style="font-size:24px;font-family:Helvetica Neue,Helvetica, Arial, sans-serif;color:white;background-color:darkslategrey;border:none;padding:0px;">@Model.article.ContentText</pre>
+=======
+            @Html.Raw(Model.article.ContentText.Replace(Environment.NewLine, "<br/>"))
+            @*<pre style="font-size:24px;font-family:Helvetica Neue,Helvetica, Arial, sans-serif;color:white;background-color:darkslategrey;border:none;padding:0px;">@Model.article.ContentText</pre>*@
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         </dd>
     </dl>
 </div>
@@ -44,9 +49,15 @@
             @Html.DisplayFor(modelItem => item.ContentText)
         </span>
     </div>
+<<<<<<< HEAD
         <div id="article_date" class="container-fluid">
             @Html.DisplayFor(modelItem => item.PublichDate)
         </div>
+=======
+    <div id="article_date" class="container-fluid">
+        @Html.DisplayFor(modelItem => item.PublichDate)
+    </div>
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 }
 @if (Request.IsAuthenticated)
 {
@@ -54,9 +65,15 @@
     TempData.Keep("subject");
     using (Ajax.BeginForm("Details", "MainArticleModels", new AjaxOptions()))
     {
+<<<<<<< HEAD
                     @Html.AntiForgeryToken()
 
                     <div class="form-horizontal">
+=======
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -72,5 +89,9 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 }
+=======
+    }
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
 }

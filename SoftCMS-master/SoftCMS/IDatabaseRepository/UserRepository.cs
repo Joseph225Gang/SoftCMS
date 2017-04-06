@@ -9,7 +9,11 @@ namespace SoftCMS.IDatabaseRepository
 {
     public class UserRepository : IDatabaseRepository
     {
+<<<<<<< HEAD
         private DataBaseInitialize dbSave = new ApplicationUserInitialize();
+=======
+        private DbInit dbSave = new ApplicationUserInit();
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         private ApplicationDbContext db = null;
 
         public UserRepository()
@@ -32,12 +36,20 @@ namespace SoftCMS.IDatabaseRepository
 
         public Task Insert(object obj)
         {
+<<<<<<< HEAD
             throw new NotImplementedException();
+=======
+            throw new NotImplementedException("請到Account/Register頁面註冊");
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         }
 
         public Task Update(object obj)
         {
+<<<<<<< HEAD
             throw new NotImplementedException();
+=======
+            throw new NotImplementedException("用戶資料不可修改");
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         }
     }
 }

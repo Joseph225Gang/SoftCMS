@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.hubConnection();
+            var hub = connection.createHubProxy("userActivityHub");
+            hub.on("updateUsersOnlineCount", function (count) {
+                $('#countView').text("上線人數 : " + count);
+            });
+            connection.start();
+        });
+    </script>
+</head>
+<body>
+    <div>
+
+    </div>
+</body>
+</html>

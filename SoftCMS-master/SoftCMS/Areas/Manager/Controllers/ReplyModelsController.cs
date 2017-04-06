@@ -61,6 +61,40 @@ namespace SoftCMS.Areas.Manager.Controllers
             return RedirectToAction("Index");
         }
 
+<<<<<<< HEAD
+=======
+        // GET: Manager/ReplyModels1/Edit/5
+        public async Task<ActionResult> Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ReplyModel replyModel = await db.Replies.FindAsync(id);
+            if (replyModel == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ArticleID = new SelectList(db.MainArticles, "ID", "Subject", replyModel.ArticleID);
+            return View(replyModel);
+        }
+
+        // POST: Manager/ReplyModels1/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "ContentText")] ReplyModel replyModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await repository.Update(replyModel);
+                return RedirectToAction("Index");
+            }
+            return View(replyModel);
+        }
+
+>>>>>>> 8b99a5b61aa279f7828a8dfe0e8aaee4969c2f89
         protected override void Dispose(bool disposing)
         {
             if (disposing)
