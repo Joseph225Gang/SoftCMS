@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SoftCMS.Models.Forum>
+@{
+    ViewBag.Title = "Browse";
+    Layout = "~/Views/Shared/_SoftLayout.cshtml";
+}
+
+<table class="table" id="register">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.ActionLink(item.ContentText, "Index", "MainArticleModels", new { title = item.ContentText }, new { })
+            </th>
+        </tr>
+    }
+</table>
+<h2>Browse</h2>
+@CheckIdentity.CheckUserIdentity()

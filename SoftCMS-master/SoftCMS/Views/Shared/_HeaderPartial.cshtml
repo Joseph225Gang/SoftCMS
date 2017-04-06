@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="navarright">
+            @if (ViewContext.RouteData.Values["controller"].Equals("MainArticleModels")
+                                        && ViewContext.RouteData.Values["action"].Equals("Index"))
+            {
+                @Html.ActionLink("發文", "Create", "MainArticleModels", new { title = ViewBag.Title }, new { @id = "register" })
+            }
+            @Html.ActionLink("Hello " + Html.Raw(Html.Action("GetCurrentUserName","Account",new { area = "" })) + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @id = "board", title = "Manage" })&nbsp;
+            <a id="register" href="javascript:document.getElementById('logoutForm').submit()">
+                登出
+            </a>
+        </div>
+                    }
+                }
+                else
+                {
+                    <div id="navarright">
+                        @Html.ActionLink("登入", "Login", "Account", new { area = "" }, new { @id = "register" })
+                        @Html.ActionLink("註冊", "register", "Account", new { area = "" }, new { @id = "register" })
+                    </div>
+                }

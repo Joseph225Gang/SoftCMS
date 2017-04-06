@@ -1,0 +1,45 @@
+﻿@model SoftCMS.Models.MainArticleModel
+
+@{
+    TempData["Forum"] = ViewBag.Theme;
+    TempData.Keep("Forum");
+}
+
+<div id="board">
+    <h2>發文</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContentText, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.ContentText, new { @cols = 50, @rows = 8, htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContentText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.PublichDate)
+            @Html.HiddenFor(model => model.CreateUser)
+            @Html.HiddenFor(model => model.ReplyCount)
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="發文" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
