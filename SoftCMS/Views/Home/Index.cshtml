@@ -1,0 +1,23 @@
+﻿﻿@model IEnumerable<SoftCMS.Models.MainThemes>
+
+<table class="table" id="register">
+    <tr>
+        <th>
+            主題
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContentText)
+            </td>
+            <td>
+                @Html.ActionLink("前往", "Browse", "Forum", new { name = item.ContentText }, new { })
+            </td>
+        </tr>
+    }
+
+</table>
+@CheckIdentity.CheckUserIdentity()
