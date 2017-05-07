@@ -35,6 +35,6 @@ namespace SoftCMS.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<SoftCMS.Models.ApplicationUser> ApplicationUsers { get; set; }
+        //public System.Data.Entity.DbSet<SoftCMS.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

@@ -47,3 +47,12 @@
 #page {
   position: relative;
 }
+#countView {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  background-color: black;
+  color: #fff;
+}

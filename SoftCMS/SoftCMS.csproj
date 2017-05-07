@@ -80,6 +80,14 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -232,8 +240,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="Hubs\UserActivityHub.cs" />
     <Compile Include="IDatabaseRepository\ApplicationUserInitialize.cs" />
     <Compile Include="IDatabaseRepository\DataBaseInitialize.cs" />
+    <Compile Include="IDatabaseRepository\IDbDelete.cs" />
+    <Compile Include="IDatabaseRepository\IDbInsert.cs" />
+    <Compile Include="IDatabaseRepository\IDbUpdate.cs" />
     <Compile Include="IDatabaseRepository\ForumRepository.cs" />
     <Compile Include="IDatabaseRepository\IDatabaseRepository.cs" />
     <Compile Include="IDatabaseRepository\MainArticleModelRepository.cs" />
@@ -299,11 +312,9 @@
     <Content Include="Areas\Manager\Views\ReplyModels\Index.cshtml" />
     <Content Include="Content\layout.less" />
     <Content Include="App_Code\CheckIdentity.cshtml" />
-    <Content Include="Areas\Manager\Views\MainThemes\Create.cshtml" />
     <Content Include="Areas\Manager\Views\MainThemes\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\MainThemes\Edit.cshtml" />
     <Content Include="Areas\Manager\Views\MainThemes\Index.cshtml" />
-    <Content Include="Areas\Manager\Views\Forum\Create.cshtml" />
     <Content Include="Areas\Manager\Views\Forum\Delete.cshtml" />
     <Content Include="Areas\Manager\Views\Forum\Edit.cshtml" />
     <Content Include="Areas\Manager\Views\Forum\Index.cshtml" />
@@ -665,6 +676,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -711,6 +724,7 @@
     <Content Include="Views\Error\DataError.cshtml" />
     <Content Include="Views\Forum\Browse.cshtml" />
     <Content Include="Views\MainArticleModels\Index.cshtml" />
+    <Content Include="Views\Shared\_VisitorCountPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Manager\Models\" />

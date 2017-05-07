@@ -17,7 +17,7 @@ namespace SoftCMS.Areas.Manager.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        private IDatabaseRepository.IDatabaseRepository repository = null;
+        private IDatabaseRepository.IDbDelete repository = null;
 
         public UsersController()
         {

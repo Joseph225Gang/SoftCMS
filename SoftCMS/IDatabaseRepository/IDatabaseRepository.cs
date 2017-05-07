@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftCMS.IDatabaseRepository
 {
-    public interface IDatabaseRepository
+    public interface IDatabaseRepository : IDbInsert, IDbUpdate, IDbDelete
     {
-        Task Insert(Object obj);
-        Task Update(Object obj);
-        Task Delete(Guid id);
     }
 }

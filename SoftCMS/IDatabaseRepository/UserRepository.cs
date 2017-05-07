@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SoftCMS.IDatabaseRepository
 {
-    public class UserRepository : IDatabaseRepository
+    public class UserRepository : IDbDelete
     {
         private DbInit dbSave = new ApplicationUserInit();
         private ApplicationDbContext db = null;

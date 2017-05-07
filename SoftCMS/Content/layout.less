@@ -1,8 +1,8 @@
-﻿@white : #fff;
-@darkBlue : #0c0a66;
-@gray : #aaa;
-@yellow : #ff6;
-@green : #00ff21;
+﻿@wordColor : #fff;
+@background : #0c0a66;
+@containerColor : #aaa;
+@logoColor : #ff6;
+@viewWord : #00ff21;
 #navarblcok{
     position:fixed;
     top:0;
@@ -11,13 +11,13 @@
     z-index:30;
     overflow-x:auto;
     overflow-y:hidden;
-    background-color: @darkBlue;
+    background-color: @background;
     margin:0px;
 }
 
 #navarcontainer{
     font-size:24px;
-    color: @gray;
+    color: @containerColor;
     padding:0px 10px;
     display:inline-block;
     float:left;
@@ -25,33 +25,43 @@
 
 #article_content{
     font-size:24px;
-    color: @white;
+    color: @wordColor;
 }
 #article_date{
     font-size:20px;
-    color: @gray;
+    color: @containerColor;
 }
 #article_view{
     font-size:24px;
-    color: @green;
+    color: @viewWord;
 }
 #navarright{
     font-size:24px;
-    color: @gray;
+    color: @containerColor;
     float:right;
     padding:0px 5px;
 }
 #logo{
-    color: @yellow;
+    color: @logoColor;
 }
 
 #board{
-    color: @white;
+    color: @wordColor;
 }
 #register{
     background-color:dimgrey;
-    color: @white;
+    color: @wordColor;
 }
 #page{
     position:relative;
+}
+
+#countView{
+    height:100px;
+    width:100px;
+    position:absolute;
+    left:0px;
+    top:50%;
+    background-color:black;
+    color:@wordColor;
 }

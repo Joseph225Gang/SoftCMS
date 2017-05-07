@@ -37,7 +37,7 @@
             @Html.HiddenFor(model => model.ReplyCount)*@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="發文" class="btn btn-default" />
+                    @Html.Submit("發文", new { @class = "btn btn-default" }) 
                 </div>
             </div>
         </div>
